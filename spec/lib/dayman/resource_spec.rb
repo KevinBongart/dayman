@@ -22,48 +22,6 @@ describe Dayman::Resource do
     end
   end
 
-  describe '.filter' do
-    subject { TestResource.filter(id: 123) }
-
-    it 'builds a request with a filter' do
-      expect(subject).to be_a(Dayman::Request)
-      expect(subject.filters).to eq(id: 123)
-    end
-
-    it 'sends a request with a filter' do
-      stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123')
-
-      subject.all
-    end
-
-    context 'multiple filters' do
-      subject { TestResource.filter(nightman: false).filter(id: 123) }
-
-      it 'is chainable' do
-        expect(subject).to be_a(Dayman::Request)
-      end
-
-      it 'builds a request with a filter' do
-        expect(subject.filters).to eq(id: 123, nightman: false)
-      end
-
-      it 'sends a request with all the filters in alphabetical order' do
-        stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123&filter[nightman]=false')
-
-        subject.all
-      end
-    end
-
-    describe '.where' do
-      subject { TestResource.where(id: 123) }
-
-      it 'is aliased to .filter' do
-        expect(subject).to be_a(Dayman::Request)
-        expect(subject.filters).to eq(id: 123)
-      end
-    end
-  end
-
   describe '.includes' do
     subject { TestResource.includes(:songs) }
 
@@ -121,6 +79,113 @@ describe Dayman::Resource do
         stub_request(:get, 'http://dayman.com/test_resources?include=songs,hat.colors,hat.arrow')
 
         subject.all
+      end
+    end
+  end
+
+  describe '.fields' do
+    context do
+      subject { TestResource.fields(:name) }
+
+      it 'builds a request with selected fields' do
+        expect(subject).to be_a(Dayman::Request)
+        expect(subject.fieldsets).to eq(test_resources: [:name])
+      end
+
+      it 'sends a request with included resources' do
+        stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name')
+
+        subject.all
+      end
+    end
+
+    context do
+      subject { TestResource.fields([:name, :age]) }
+
+      it 'builds a request with selected fields' do
+        expect(subject).to be_a(Dayman::Request)
+        expect(subject.fieldsets).to eq(test_resources: [:name, :age])
+      end
+
+      it 'sends a request with included resources' do
+        stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name,age')
+
+        subject.all
+      end
+    end
+
+    context do
+      subject { TestResource.fields(test_resources: [:name, :age], book: [:title]) }
+
+      it 'builds a request with selected fields' do
+        expect(subject).to be_a(Dayman::Request)
+        expect(subject.fieldsets).to eq(test_resources: [:name, :age], book: [:title])
+      end
+
+      it 'sends a request with included resources' do
+        stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name,age&fields[book]=title')
+
+        subject.all
+      end
+    end
+
+    context 'multiple fieldsets in chained methods' do
+      subject { TestResource.fields(test_resources: :name).fields(book: :title).fields(test_resources: :age) }
+
+      it 'is chainable' do
+        expect(subject).to be_a(Dayman::Request)
+      end
+
+      it 'builds a request with selected fields' do
+        expect(subject.fieldsets).to eq(test_resources: [:name, :age], book: [:title])
+      end
+
+      it 'sends a request with included resources' do
+        stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name,age&fields[book]=title')
+
+        subject.all
+      end
+    end
+  end
+
+  describe '.filter' do
+    subject { TestResource.filter(id: 123) }
+
+    it 'builds a request with a filter' do
+      expect(subject).to be_a(Dayman::Request)
+      expect(subject.filters).to eq(id: 123)
+    end
+
+    it 'sends a request with a filter' do
+      stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123')
+
+      subject.all
+    end
+
+    context 'multiple filters' do
+      subject { TestResource.filter(nightman: false).filter(id: 123) }
+
+      it 'is chainable' do
+        expect(subject).to be_a(Dayman::Request)
+      end
+
+      it 'builds a request with a filter' do
+        expect(subject.filters).to eq(id: 123, nightman: false)
+      end
+
+      it 'sends a request with all the filters in alphabetical order' do
+        stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123&filter[nightman]=false')
+
+        subject.all
+      end
+    end
+
+    describe '.where' do
+      subject { TestResource.where(id: 123) }
+
+      it 'is aliased to .filter' do
+        expect(subject).to be_a(Dayman::Request)
+        expect(subject.filters).to eq(id: 123)
       end
     end
   end

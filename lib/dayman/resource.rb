@@ -8,9 +8,11 @@ module Dayman
 
       def_delegators :request,
         :all,
+        :fields,
         :filter,
         :find,
         :includes,
+        :select,
         :where
 
       def path
