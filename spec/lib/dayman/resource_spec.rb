@@ -84,66 +84,45 @@ describe Dayman::Resource do
   end
 
   describe '.fields' do
-    context do
-      subject { TestResource.fields(:name) }
+    context 'single fieldset' do
+      subject { TestResource.fields(:name).all }
 
-      it 'builds a request with selected fields' do
-        expect(subject).to be_a(Dayman::Request)
-        expect(subject.fieldsets).to eq(test_resources: [:name])
-      end
-
-      it 'sends a request with included resources' do
+      it 'sends a request with selected fieldsets' do
         stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name')
 
-        subject.all
+        subject
       end
     end
 
-    context do
-      subject { TestResource.fields([:name, :age]) }
+    context 'multiple fieldsets' do
+      subject { TestResource.fields([:name, :age]).all }
 
-      it 'builds a request with selected fields' do
-        expect(subject).to be_a(Dayman::Request)
-        expect(subject.fieldsets).to eq(test_resources: [:name, :age])
-      end
-
-      it 'sends a request with included resources' do
+      it 'sends a request with selected fieldsets' do
         stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name,age')
 
-        subject.all
+        subject
       end
     end
 
-    context do
-      subject { TestResource.fields(test_resources: [:name, :age], book: [:title]) }
+    context 'multiple fieldsets for multiple resources in one method' do
+      subject { TestResource.fields(test_resources: [:name, :age], book: [:title]).all }
 
-      it 'builds a request with selected fields' do
-        expect(subject).to be_a(Dayman::Request)
-        expect(subject.fieldsets).to eq(test_resources: [:name, :age], book: [:title])
-      end
-
-      it 'sends a request with included resources' do
+      it 'sends a request with selected fieldsets' do
         stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name,age&fields[book]=title')
 
-        subject.all
+        subject
       end
     end
 
-    context 'multiple fieldsets in chained methods' do
-      subject { TestResource.fields(test_resources: :name).fields(book: :title).fields(test_resources: :age) }
-
-      it 'is chainable' do
-        expect(subject).to be_a(Dayman::Request)
+    context 'multiple fieldsets for multiple resources in chained methods' do
+      subject do
+        TestResource.fields(test_resources: :name).fields(book: :title).fields(test_resources: :age).all
       end
 
-      it 'builds a request with selected fields' do
-        expect(subject.fieldsets).to eq(test_resources: [:name, :age], book: [:title])
-      end
-
-      it 'sends a request with included resources' do
+      it 'sends a request with selected fieldsets' do
         stub_request(:get, 'http://dayman.com/test_resources?fields[test_resources]=name,age&fields[book]=title')
 
-        subject.all
+        subject
       end
     end
   end
