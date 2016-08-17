@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 module Dayman
   class Request
     attr_reader :resource,
-      :filters
+                :filters
 
     def initialize(resource)
       @resource = resource
@@ -13,7 +14,7 @@ module Dayman
     end
 
     def find(id)
-      connection.get([resource.path, id].join("/"))
+      connection.get([resource.path, id].join('/'))
     end
 
     def filter(conditions)
@@ -21,7 +22,7 @@ module Dayman
 
       self
     end
-    alias_method :where, :filter
+    alias where filter
 
     private
 

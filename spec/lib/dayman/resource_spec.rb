@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Dayman::Resource do
@@ -5,7 +6,7 @@ describe Dayman::Resource do
     subject { TestResource.all }
 
     it 'fetches a collection' do
-      stub_request(:get, "http://dayman.com/test_resources")
+      stub_request(:get, 'http://dayman.com/test_resources')
 
       subject
     end
@@ -15,7 +16,7 @@ describe Dayman::Resource do
     subject { TestResource.find(123) }
 
     it 'fetches a member' do
-      stub_request(:get, "http://dayman.com/test_resources/123")
+      stub_request(:get, 'http://dayman.com/test_resources/123')
 
       subject
     end
@@ -26,11 +27,11 @@ describe Dayman::Resource do
 
     it 'builds a request with a filter' do
       expect(subject).to be_a(Dayman::Request)
-      expect(subject.filters).to eq({ id: 123 })
+      expect(subject.filters).to eq(id: 123)
     end
 
     it 'sends a request with a filter' do
-      stub_request(:get, "http://dayman.com/test_resources?filter[id]=123")
+      stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123')
 
       subject.all
     end
@@ -40,11 +41,11 @@ describe Dayman::Resource do
 
       it 'is chainable' do
         expect(subject).to be_a(Dayman::Request)
-        expect(subject.filters).to eq({ id: 123, nightman: false })
+        expect(subject.filters).to eq(id: 123, nightman: false)
       end
 
       it 'sends a request with all the filters in alphabetical order' do
-        stub_request(:get, "http://dayman.com/test_resources?filter[id]=123&filter[nightman]=false")
+        stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123&filter[nightman]=false')
 
         subject.all
       end
@@ -55,7 +56,7 @@ describe Dayman::Resource do
 
       it 'is an alias to .filter' do
         expect(subject).to be_a(Dayman::Request)
-        expect(subject.filters).to eq({ id: 123 })
+        expect(subject.filters).to eq(id: 123)
       end
     end
 
@@ -63,13 +64,13 @@ describe Dayman::Resource do
       context 'single-word resource' do
         subject { Thing.path }
 
-        it { is_expected.to eq("things") }
+        it { is_expected.to eq('things') }
       end
 
       context 'multi-word resource' do
         subject { TestResource.path }
 
-        it { is_expected.to eq("test_resources") }
+        it { is_expected.to eq('test_resources') }
       end
     end
   end
