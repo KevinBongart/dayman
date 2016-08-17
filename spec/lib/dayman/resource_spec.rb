@@ -23,62 +23,43 @@ describe Dayman::Resource do
   end
 
   describe '.includes' do
-    subject { TestResource.includes(:songs) }
+    context 'single resource' do
+      subject { TestResource.includes(:songs).all }
 
-    it 'builds a request with included resources' do
-      expect(subject).to be_a(Dayman::Request)
-      expect(subject.included_resources).to match_array([:songs])
-    end
+      it 'sends a request with included resource' do
+        stub_request(:get, 'http://dayman.com/test_resources?include=songs')
 
-    it 'sends a request with included resources' do
-      stub_request(:get, 'http://dayman.com/test_resources?include=songs')
-
-      subject.all
-    end
-
-    context 'multiple resources in chained methods' do
-      subject { TestResource.includes(:songs).includes(:hat) }
-
-      it 'is chainable' do
-        expect(subject).to be_a(Dayman::Request)
-      end
-
-      it 'builds a request with all the included resources' do
-        expect(subject.included_resources).to match_array([:songs, :hat])
-      end
-
-      it 'sends a request with all the resources' do
-        stub_request(:get, 'http://dayman.com/test_resources?include=songs,hat')
-
-        subject.all
+        subject
       end
     end
 
     context 'multiple resources in one method' do
-      subject { TestResource.includes(:songs, :hat) }
+      subject { TestResource.includes(:songs, :hat).all }
 
-      it 'builds a request with all the included resources' do
-        expect(subject.included_resources).to match_array([:songs, :hat])
-      end
-
-      it 'sends a request with all the resources' do
+      it 'sends a request with all the included resources' do
         stub_request(:get, 'http://dayman.com/test_resources?include=songs,hat')
 
-        subject.all
+        subject
+      end
+    end
+
+    context 'multiple resources in chained methods' do
+      subject { TestResource.includes(:songs).includes(:hat).all }
+
+      it 'sends a request with all the included resources' do
+        stub_request(:get, 'http://dayman.com/test_resources?include=songs,hat')
+
+        subject
       end
     end
 
     context 'nested resources' do
-      subject { TestResource.includes(:songs, hat: [:colors, :arrow]) }
+      subject { TestResource.includes(:songs, hat: [:colors, :arrow]).all }
 
-      it 'builds a request with all the included resources' do
-        expect(subject.included_resources).to match_array([:songs, hat: [:colors, :arrow]])
-      end
-
-      it 'sends a request with all the resources' do
+      it 'sends a request with all the included resources' do
         stub_request(:get, 'http://dayman.com/test_resources?include=songs,hat.colors,hat.arrow')
 
-        subject.all
+        subject
       end
     end
   end

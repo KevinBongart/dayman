@@ -47,4 +47,12 @@ describe Dayman::Request::Fields do
       end
     end
   end
+
+  describe '#select' do
+    subject { instance.select(:name) }
+
+    it 'is aliased to #fields' do
+      expect(subject.fieldsets).to eq(test_resources: [:name])
+    end
+  end
 end
