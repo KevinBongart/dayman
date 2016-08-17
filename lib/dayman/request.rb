@@ -2,7 +2,7 @@
 module Dayman
   class Request
     attr_reader :resource,
-                :filters
+      :filters
 
     def initialize(resource)
       @resource = resource

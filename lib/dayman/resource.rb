@@ -7,10 +7,10 @@ module Dayman
       attr_accessor :site
 
       def_delegators :request,
-                     :all,
-                     :filter,
-                     :find,
-                     :where
+        :all,
+        :filter,
+        :find,
+        :where
 
       def path
         name.underscore.pluralize
