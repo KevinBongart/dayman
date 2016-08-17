@@ -3,8 +3,18 @@ AllCops:
   Exclude:
     - 'dayman.gemspec'
 
-Style/Documentation:
-  Enabled: false
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/LineLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Metrics/MethodLength:
+  Max: 15
 
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
+
+Style/Documentation:
+  Enabled: false

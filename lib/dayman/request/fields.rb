@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Dayman
   class Request
     module Fields
