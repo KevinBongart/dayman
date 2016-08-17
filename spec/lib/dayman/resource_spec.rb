@@ -128,43 +128,33 @@ describe Dayman::Resource do
   end
 
   describe '.filter' do
-    subject { TestResource.filter(id: 123) }
+    context 'single filter' do
+      subject { TestResource.filter(id: 123).all }
 
-    it 'builds a request with a filter' do
-      expect(subject).to be_a(Dayman::Request)
-      expect(subject.filters).to eq(id: 123)
+      it 'sends a request with a filter' do
+        stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123')
+
+        subject
+      end
     end
 
-    it 'sends a request with a filter' do
-      stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123')
+    context 'multiple filters in one method' do
+      subject { TestResource.filter(nightman: false, id: 123).all }
 
-      subject.all
-    end
-
-    context 'multiple filters' do
-      subject { TestResource.filter(nightman: false).filter(id: 123) }
-
-      it 'is chainable' do
-        expect(subject).to be_a(Dayman::Request)
-      end
-
-      it 'builds a request with a filter' do
-        expect(subject.filters).to eq(id: 123, nightman: false)
-      end
-
-      it 'sends a request with all the filters in alphabetical order' do
+      it 'sends a request with filters' do
         stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123&filter[nightman]=false')
 
-        subject.all
+        subject
       end
     end
 
-    describe '.where' do
-      subject { TestResource.where(id: 123) }
+    context 'multiple filters in chained methods' do
+      subject { TestResource.filter(nightman: false).filter(id: 123).all }
 
-      it 'is aliased to .filter' do
-        expect(subject).to be_a(Dayman::Request)
-        expect(subject.filters).to eq(id: 123)
+      it 'sends a request with filters' do
+        stub_request(:get, 'http://dayman.com/test_resources?filter[id]=123&filter[nightman]=false')
+
+        subject
       end
     end
   end
