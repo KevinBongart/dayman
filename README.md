@@ -2,7 +2,11 @@
 
 ![Dayman](http://screenshots.kevinbongart.net/AiJbs.gif)
 
-Yet another JSON API client.
+Yet another JSON API client, heavily inspired by
+[json_api_client](https://github.com/chingor13/json_api_client) and
+[ActiveRecord](http://api.rubyonrails.org/classes/ActiveRecord/Base.html).
+
+⚠️ Not currently feature complete! ⚠️
 
 ## Installation
 
@@ -23,15 +27,29 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-class Something < Dayman::Resource
-  self.site = "http://yolo.com"
+module CoolPetsApi
+  class Base < Dayman::Resource
+    self.site = "http://coolpets.com"
+  end
+
+  class CoolDog < Dayman::Resource
+  end
 end
 
-Something.all
-# GET "http://yolo.com/somethings"
+CoolPetsApi::CoolDog.all
+# GET "http://coolpets.com/cool_dogs"
 
-Something.find(123)
-# GET "http://yolo.com/somethings/123"
+CoolPetsApi::CoolDog.find(123)
+# GET "http://coolpets.com/cool_dogs/123"
+
+CoolPetsApi::CoolDog.where(name: "Wolfie").where(age: 2).all
+# GET "http://coolpets.com/cool_dogs?filter[name]=Wolfie&filter[age]=2"
+
+CoolPetsApi::CoolDog.select(:name, :age).select(friends: :coolness).all
+# GET "http://coolpets.com/cool_dogs?fields[cool_dogs]=name,age&fields[friends]=coolness"
+
+CoolPetsApi::CoolDog.includes(friends: :owner).all
+# GET "http://coolpets.com/cool_dogs?include=friends.owner"
 ```
 
 ## Development
