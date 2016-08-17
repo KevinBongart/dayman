@@ -6,7 +6,7 @@ Yet another JSON API client, heavily inspired by
 [json_api_client](https://github.com/chingor13/json_api_client) and
 [ActiveRecord](http://api.rubyonrails.org/classes/ActiveRecord/Base.html).
 
-⚠️ Not currently feature complete! ⚠️
+⚠️ Not nearly feature complete! ⚠️
 
 ## Installation
 
@@ -32,7 +32,7 @@ module CoolPetsApi
     self.site = "http://coolpets.com"
   end
 
-  class CoolDog < Dayman::Resource
+  class CoolDog < Base
   end
 end
 
@@ -60,7 +60,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/dayman. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/KevinBongart/dayman. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
