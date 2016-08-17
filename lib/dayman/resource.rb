@@ -10,6 +10,7 @@ module Dayman
         :all,
         :filter,
         :find,
+        :includes,
         :where
 
       def path
