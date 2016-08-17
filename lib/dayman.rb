@@ -1,5 +1,6 @@
-require "dayman/version"
+require "active_support/all"
+require "faraday"
 
-module Dayman
-  # Your code goes here...
-end
+require "dayman/version"
+require "dayman/request"
+require "dayman/resource"
