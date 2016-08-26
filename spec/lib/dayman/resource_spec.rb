@@ -140,6 +140,28 @@ describe Dayman::Resource do
     end
   end
 
+  describe '.sort' do
+    context 'single sort field' do
+      subject { TestResource.sort(:age).all }
+
+      it 'sends a request with sort parameter' do
+        stub_request(:get, 'http://dayman.com/test_resources?sort=age')
+
+        subject
+      end
+    end
+
+    context 'multiple sort fields' do
+      subject { TestResource.sort(:age, name: :desc).all }
+
+      it 'sends a request with sort parameter' do
+        stub_request(:get, 'http://dayman.com/test_resources?sort=age,-name')
+
+        subject
+      end
+    end
+  end
+
   describe '#path' do
     context 'single-word resource' do
       subject { Thing.path }

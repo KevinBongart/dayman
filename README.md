@@ -50,6 +50,9 @@ CoolPetsApi::CoolDog.select(:name, :age).select(friends: :coolness).all
 
 CoolPetsApi::CoolDog.includes(friends: :owner).all
 # GET "http://coolpets.com/cool_dogs?include=friends.owner"
+
+CoolPetsApi::CoolDog.sort(:age, name: :desc).all
+# GET "http://coolpets.com/cool_dogs?sort=age,-name"
 ```
 
 ## Development

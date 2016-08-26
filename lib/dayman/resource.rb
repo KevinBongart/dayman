@@ -13,6 +13,7 @@ module Dayman
         :find,
         :includes,
         :select,
+        :sort,
         :where
 
       def path

@@ -3,17 +3,20 @@
 require 'dayman/request/fields'
 require 'dayman/request/filters'
 require 'dayman/request/includes'
+require 'dayman/request/sorting'
 
 module Dayman
   class Request
     include Fields
     include Filters
     include Includes
+    include Sorting
 
     attr_reader :resource,
       :fieldsets,
       :filters,
-      :included_resources
+      :included_resources,
+      :sort_fields
 
     def initialize(resource)
       @resource = resource
@@ -21,6 +24,7 @@ module Dayman
       @fieldsets = {}
       @filters = {}
       @included_resources = []
+      @sort_fields = []
     end
 
     # http://jsonapi.org/format/#fetching-resources
@@ -45,6 +49,7 @@ module Dayman
       params.merge!(filters_to_query_parameters)
       params.merge!(included_resources_to_query_parameters)
       params.merge!(fieldsets_to_query_parameters)
+      params.merge!(sort_fields_to_query_parameters)
     end
   end
 end
