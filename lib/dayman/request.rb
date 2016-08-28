@@ -35,7 +35,8 @@ module Dayman
 
     # http://jsonapi.org/format/#fetching-resources
     def find(id)
-      connection.get([resource.path, id].join('/'))
+      response = connection.get([resource.path, id].join('/'))
+      Parser.new(resource: resource, response: response.body).member
     end
 
     private

@@ -11,11 +11,14 @@ module Dayman
       return [] if parsed_response.blank?
 
       parsed_response[:data].map do |item|
-        resource_class = resource_class_for(item)
-        add_missing_attributes_to_resource_class(resource_class, item[:attributes].keys)
-
-        resource_class.new(item[:attributes].merge(id: item[:id]))
+        response_item_to_object(item)
       end
+    end
+
+    def member
+      return nil if parsed_response.blank?
+
+      response_item_to_object(parsed_response[:data])
     end
 
     private
@@ -38,6 +41,13 @@ module Dayman
           resource_class.module_eval { attr_accessor attribute }
         end
       end
+    end
+
+    def response_item_to_object(item)
+      resource_class = resource_class_for(item)
+      add_missing_attributes_to_resource_class(resource_class, item[:attributes].keys)
+
+      resource_class.new(item[:attributes].merge(id: item[:id]))
     end
   end
 end

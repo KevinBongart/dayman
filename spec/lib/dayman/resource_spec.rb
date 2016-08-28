@@ -5,10 +5,10 @@ describe Dayman::Resource do
   describe '.all' do
     subject { TestResource.all }
 
-    let(:collection_response) { File.read('spec/support/fixtures/test_resource_collection.json') }
+    let(:response) { File.read('spec/support/fixtures/test_resource_collection.json') }
 
     it 'fetches and returns a collection' do
-      stub_request(:get, 'http://dayman.com/test_resources').to_return(body: collection_response)
+      stub_request(:get, 'http://dayman.com/test_resources').to_return(body: response)
 
       expect(subject).to all be_a(TestResource)
     end
@@ -17,10 +17,12 @@ describe Dayman::Resource do
   describe '.find' do
     subject { TestResource.find(123) }
 
-    it 'fetches a member' do
-      stub_request(:get, 'http://dayman.com/test_resources/123')
+    let(:response) { File.read('spec/support/fixtures/test_resource_member.json') }
 
-      subject
+    it 'fetches and returns a member' do
+      stub_request(:get, 'http://dayman.com/test_resources/123').to_return(body: response)
+
+      expect(subject).to be_a(TestResource)
     end
   end
 
