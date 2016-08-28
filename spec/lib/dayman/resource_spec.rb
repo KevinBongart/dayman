@@ -5,10 +5,12 @@ describe Dayman::Resource do
   describe '.all' do
     subject { TestResource.all }
 
-    it 'fetches a collection' do
-      stub_request(:get, 'http://dayman.com/test_resources')
+    let(:collection_response) { File.read('spec/support/fixtures/test_resource_collection.json') }
 
-      subject
+    it 'fetches and returns a collection' do
+      stub_request(:get, 'http://dayman.com/test_resources').to_return(body: collection_response)
+
+      expect(subject).to all be_a(TestResource)
     end
   end
 

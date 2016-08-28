@@ -29,7 +29,8 @@ module Dayman
 
     # http://jsonapi.org/format/#fetching-resources
     def all
-      connection.get(resource.path, query_parameters)
+      response = connection.get(resource.path, query_parameters)
+      Parser.new(resource: resource, response: response.body).collection
     end
 
     # http://jsonapi.org/format/#fetching-resources

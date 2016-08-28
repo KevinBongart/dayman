@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module Dayman
   class Resource
+    include ActiveModel::Model
+
     class << self
       extend Forwardable
 
@@ -26,5 +28,7 @@ module Dayman
         Request.new(self)
       end
     end
+
+    attr_accessor :id
   end
 end
