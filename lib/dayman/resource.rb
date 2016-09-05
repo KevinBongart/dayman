@@ -3,6 +3,8 @@ module Dayman
   class Resource
     include ActiveModel::Model
 
+    attr_accessor :id, :attributes
+
     class << self
       extend Forwardable
 
@@ -29,6 +31,17 @@ module Dayman
       end
     end
 
-    attr_accessor :id
+    def initialize(id: nil, attributes: {})
+      @id = id
+      @attributes = attributes
+    end
+
+    def method_missing(name, *args, &block)
+      attributes.key?(name) ? attributes[name] : super
+    end
+
+    def respond_to_missing?(name, include_private = false)
+      attributes.key?(name) || super
+    end
   end
 end

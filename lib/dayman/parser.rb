@@ -33,21 +33,8 @@ module Dayman
       item[:type].classify.safe_constantize
     end
 
-    def add_missing_attributes_to_resource_class(resource_class, attributes = [])
-      attributes.each do |attribute|
-        accessor_method = "#{attribute}="
-
-        unless resource_class.respond_to?(accessor_method)
-          resource_class.module_eval { attr_accessor attribute }
-        end
-      end
-    end
-
     def response_item_to_object(item)
-      resource_class = resource_class_for(item)
-      add_missing_attributes_to_resource_class(resource_class, item[:attributes].keys)
-
-      resource_class.new(item[:attributes].merge(id: item[:id]))
+      resource_class_for(item).new(item.slice(:id, :attributes))
     end
   end
 end
