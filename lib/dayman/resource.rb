@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 module Dayman
   class Resource
-    include ActiveModel::Model
-
     attr_accessor :id, :attributes
 
     class << self
