@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module Dayman
   class Resource
+    attr_accessor :id, :attributes
+
     class << self
       extend Forwardable
 
@@ -25,6 +27,19 @@ module Dayman
       def request
         Request.new(self)
       end
+    end
+
+    def initialize(id: nil, attributes: {})
+      @id = id
+      @attributes = attributes
+    end
+
+    def method_missing(name, *args, &block)
+      attributes.key?(name) ? attributes[name] : super
+    end
+
+    def respond_to_missing?(name, include_private = false)
+      attributes.key?(name) || super
     end
   end
 end

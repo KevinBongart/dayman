@@ -1,0 +1,23 @@
+{
+  "data": [{
+    "type": "test_resources",
+    "id": "1",
+    "attributes": {
+      "title": "JSON API paints my bikeshed!"
+    }
+  },
+  {
+    "type": "test_resources",
+    "id": "2",
+    "attributes": {
+      "title": "JSON API 2: my bikeshed is back!"
+    }
+  },
+  {
+    "type": "test_resources",
+    "id": "3",
+    "attributes": {
+      "title": "JSON API 3: bikesheder!"
+    }
+  }]
+}
