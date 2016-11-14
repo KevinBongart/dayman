@@ -6,6 +6,12 @@ require 'webmock/rspec'
 
 class TestResource < Dayman::Resource
   self.site = 'http://dayman.com/'
+
+  has_one :author
+  has_many :publications
+end
+
+class Person < Dayman::Resource
 end
 
 class Thing < Dayman::Resource

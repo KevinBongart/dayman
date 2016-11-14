@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Dayman
   class Resource
-    attr_accessor :id, :attributes
+    attr_accessor :id, :attributes, :relationships
 
     class << self
       extend Forwardable
@@ -20,6 +20,14 @@ module Dayman
 
       def path
         name.underscore.pluralize
+      end
+
+      def has_one(relationship_name)
+        attr_accessor relationship_name
+      end
+
+      def has_many(relationship_name)
+        attr_accessor relationship_name
       end
 
       private

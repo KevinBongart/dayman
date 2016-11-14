@@ -24,6 +24,19 @@ describe Dayman::Parser do
         'JSON API 3: bikesheder!'
       ]
     end
+
+    context 'with included resources' do
+      let(:response) { File.read('spec/support/fixtures/test_resource_collection_with_included_relationships.json') }
+
+      it 'builds the defined associations' do
+        expect(subject.first.author).to be_a(Person)
+        expect(subject.first.author.id).to eq('42')
+        expect(subject.first.author.first_name).to eq('Nina')
+        expect(subject.first.author.last_name).to eq('Simone')
+
+        expect(subject.first.publications).to be_an(Array)
+      end
+    end
   end
 
   describe '#member' do
