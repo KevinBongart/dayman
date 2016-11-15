@@ -11,6 +11,12 @@ class TestResource < Dayman::Resource
   has_many :publications
 end
 
+class Book < Dayman::Resource
+end
+
+class Magazine < Dayman::Resource
+end
+
 class Person < Dayman::Resource
 end
 

@@ -27,7 +27,15 @@ module Dayman
       end
 
       def has_many(relationship_name)
-        attr_accessor relationship_name
+        instance_variable_name = "@#{relationship_name}".to_sym
+
+        define_method(relationship_name) do
+          if instance_variable_defined?(instance_variable_name)
+            instance_variable_get(instance_variable_name)
+          else
+            instance_variable_set(instance_variable_name, [])
+          end
+        end
       end
 
       private

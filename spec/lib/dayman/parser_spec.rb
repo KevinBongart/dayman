@@ -35,6 +35,15 @@ describe Dayman::Parser do
         expect(subject.first.author.last_name).to eq('Simone')
 
         expect(subject.first.publications).to be_an(Array)
+        book, magazine = subject.first.publications
+
+        expect(book).to be_a(Book)
+        expect(book.id).to eq('123')
+        expect(book.title).to eq('Everything Is Illuminated')
+
+        expect(magazine).to be_a(Magazine)
+        expect(magazine.id).to eq('123')
+        expect(magazine.title).to eq('#sports')
       end
     end
   end

@@ -16,8 +16,12 @@ module Dayman
             next unless resource.respond_to?(relationship_name)
 
             if relationship_content.is_a?(Array)
-              relationship_content.each do |bla|
-                bla[:data]
+              relationship_content.each do |relationship_item|
+                included_item = parsed_response[:included].find do |e|
+                  e.slice(:id, :type) == relationship_item[:data].slice(:id, :type)
+                end
+
+                resource.send(relationship_name) << response_item_to_object(included_item)
               end
             else
               included_item = parsed_response[:included].find do |e|
