@@ -29,17 +29,17 @@ module Dayman
         resource_class.new(item.slice(:id, :attributes))
       end
 
-      def parse_relationship(resource, relationship_name, relationship_content)
+      def build_relationship(resource, relationship_name, relationship_content)
         return unless resource.respond_to?(relationship_name)
 
         if relationship_content.is_a?(Array)
-          parse_collection_relationship(resource, relationship_name, relationship_content)
+          build_collection_relationship(resource, relationship_name, relationship_content)
         else
-          parse_member_relationship(resource, relationship_name, relationship_content)
+          build_member_relationship(resource, relationship_name, relationship_content)
         end
       end
 
-      def parse_collection_relationship(resource, relationship_name, relationship_content)
+      def build_collection_relationship(resource, relationship_name, relationship_content)
         relationship_content.each do |relationship_item|
           included_item = find_included_item(relationship_item)
 
@@ -49,7 +49,7 @@ module Dayman
         end
       end
 
-      def parse_member_relationship(resource, relationship_name, relationship_content)
+      def build_member_relationship(resource, relationship_name, relationship_content)
         included_item = find_included_item(relationship_content)
 
         if object = response_item_to_object(included_item)
