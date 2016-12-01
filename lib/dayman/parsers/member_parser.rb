@@ -8,7 +8,12 @@ module Dayman
       def parse
         return if parsed_response.blank?
 
-        response_item_to_object(parsed_response[:data])
+        item = parsed_response[:data]
+        response_item_to_object(item).tap do |resource|
+          item[:relationships]&.each do |relationship_name, relationship_content|
+            parse_relationship(resource, relationship_name, relationship_content)
+          end
+        end
       end
     end
   end
