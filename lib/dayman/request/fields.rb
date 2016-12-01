@@ -28,9 +28,9 @@ module Dayman
       def fieldsets_to_query_parameters
         return {} if fieldsets.blank?
 
-        fieldsets.map do |key, values|
-          ["fields[#{key}]", values.join(',')]
-        end.to_h
+        fieldsets.each_with_object({}) do |(key, values), hash|
+          hash["fields[#{key}]"] = values.join(',')
+        end
       end
     end
   end
