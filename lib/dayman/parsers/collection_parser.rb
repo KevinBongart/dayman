@@ -19,7 +19,9 @@ module Dayman
                     e.slice(:id, :type) == relationship_item[:data].slice(:id, :type)
                   end
 
-                  resource.send(relationship_name) << response_item_to_object(included_item)
+                  if object = response_item_to_object(included_item)
+                    resource.send(relationship_name) << object
+                  end
                 end
               else
                 included_item = parsed_response[:included].find do |e|

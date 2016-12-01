@@ -23,7 +23,25 @@
           "id": "123",
           "type": "magazines"
         }
-      }]
+      },
+      {
+        "data": {
+          "id": "1",
+          "type": "undefined_class"
+        }
+      },
+      {
+        "data": {
+          "id": "not_found",
+          "type": "books"
+        }
+      }],
+      "association_not_present_in_resource": {
+        "data": {
+          "id": "123",
+          "type": "books"
+        }
+      }
     }
   },
   {
@@ -62,6 +80,10 @@
       "attributes": {
         "title": "#sports"
       }
+    },
+    {
+      "type": "undefined_class",
+      "id": "1"
     }
   ]
 }

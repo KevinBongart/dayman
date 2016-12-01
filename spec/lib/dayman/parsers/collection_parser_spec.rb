@@ -45,6 +45,14 @@ describe Dayman::Parsers::CollectionParser do
         expect(magazine.id).to eq('123')
         expect(magazine.title).to eq('#sports')
       end
+
+      it 'does not build associations for undefined classes or data not included' do
+        expect(subject.first.publications.length).to eq(2)
+      end
+
+      it 'does not build associations for associations not present in resource' do
+        expect(subject.first).not_to respond_to(:association_not_present_in_resource)
+      end
     end
   end
 end

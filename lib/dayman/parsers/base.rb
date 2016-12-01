@@ -17,6 +17,8 @@ module Dayman
       end
 
       def resource_class_for(item)
+        return if item.nil?
+
         item[:type].classify.safe_constantize
       end
 
