@@ -15,9 +15,9 @@ module Dayman
       def filters_to_query_parameters
         return {} if filters.blank?
 
-        filters.map do |key, value|
-          ["filter[#{key}]", value]
-        end.to_h
+        filters.each_with_object({}) do |(key, value), hash|
+          hash["filter[#{key}]"] = value
+        end
       end
     end
   end
