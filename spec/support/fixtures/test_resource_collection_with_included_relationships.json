@@ -1,0 +1,89 @@
+{
+  "data": [{
+    "type": "test_resources",
+    "id": "1",
+    "attributes": {
+      "title": "JSON API paints my bikeshed!"
+    },
+    "relationships": {
+      "author": {
+        "data": {
+          "id": "42",
+          "type": "people"
+        }
+      },
+      "publications": [{
+        "data": {
+          "id": "123",
+          "type": "books"
+        }
+      },
+      {
+        "data": {
+          "id": "123",
+          "type": "magazines"
+        }
+      },
+      {
+        "data": {
+          "id": "1",
+          "type": "undefined_class"
+        }
+      },
+      {
+        "data": {
+          "id": "not_found",
+          "type": "books"
+        }
+      }],
+      "association_not_present_in_resource": {
+        "data": {
+          "id": "123",
+          "type": "books"
+        }
+      }
+    }
+  },
+  {
+    "type": "test_resources",
+    "id": "2",
+    "attributes": {
+      "title": "JSON API 2: my bikeshed is back!"
+    }
+  },
+  {
+    "type": "test_resources",
+    "id": "3",
+    "attributes": {
+      "title": "JSON API 3: bikesheder!"
+    }
+  }],
+  "included": [
+    {
+      "type": "people",
+      "id": "42",
+      "attributes": {
+        "first_name": "Nina",
+        "last_name": "Simone"
+      }
+    },
+    {
+      "type": "books",
+      "id": "123",
+      "attributes": {
+        "title": "Everything Is Illuminated"
+      }
+    },
+    {
+      "type": "magazines",
+      "id": "123",
+      "attributes": {
+        "title": "#sports"
+      }
+    },
+    {
+      "type": "undefined_class",
+      "id": "1"
+    }
+  ]
+}

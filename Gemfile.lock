@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dayman (0.1.0)
+    dayman (0.1.1)
       activesupport
       faraday
 
@@ -24,12 +24,12 @@ GEM
       safe_yaml (~> 1.0.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
-    faraday (0.9.2)
+    faraday (0.10.0)
       multipart-post (>= 1.2, < 3)
     hashdiff (0.3.0)
     i18n (0.7.0)
     method_source (0.8.2)
-    minitest (5.9.0)
+    minitest (5.9.1)
     multipart-post (2.0.0)
     parser (2.3.1.2)
       ast (~> 2.2)
@@ -94,4 +94,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

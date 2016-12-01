@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'dayman/request/fields'
-require 'dayman/request/filters'
-require 'dayman/request/includes'
-require 'dayman/request/sorting'
+require_relative 'request/fields'
+require_relative 'request/filters'
+require_relative 'request/includes'
+require_relative 'request/sorting'
 
 module Dayman
   class Request
@@ -30,13 +30,13 @@ module Dayman
     # http://jsonapi.org/format/#fetching-resources
     def all
       response = connection.get(resource.path, query_parameters)
-      Parser.new(resource: resource, response: response.body).collection
+      Parsers::CollectionParser.new(resource: resource, response: response.body).parse
     end
 
     # http://jsonapi.org/format/#fetching-resources
     def find(id)
       response = connection.get([resource.path, id].join('/'))
-      Parser.new(resource: resource, response: response.body).member
+      Parsers::MemberParser.new(resource: resource, response: response.body).parse
     end
 
     private

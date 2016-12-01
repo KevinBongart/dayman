@@ -3,6 +3,9 @@ AllCops:
   Exclude:
     - 'dayman.gemspec'
 
+Lint/AssignmentInCondition:
+  Enabled: false
+
 Metrics/AbcSize:
   Max: 20
 
@@ -19,3 +22,8 @@ Style/AlignParameters:
 
 Style/Documentation:
   Enabled: false
+
+Style/PredicateName:
+  NameWhitelist:
+    - 'has_one'
+    - 'has_many'
