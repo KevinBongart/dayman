@@ -42,19 +42,17 @@ module Dayman
       def build_collection_relationship(resource, relationship_name, relationship_content)
         relationship_content.each do |relationship_item|
           included_item = find_included_item(relationship_item)
+          next unless object = response_item_to_object(included_item)
 
-          if object = response_item_to_object(included_item)
-            resource.send(relationship_name) << object
-          end
+          resource.send(relationship_name) << object
         end
       end
 
       def build_member_relationship(resource, relationship_name, relationship_content)
         included_item = find_included_item(relationship_content)
+        return unless object = response_item_to_object(included_item)
 
-        if object = response_item_to_object(included_item)
-          resource.send("#{relationship_name}=", object)
-        end
+        resource.send("#{relationship_name}=", object)
       end
 
       def find_included_item(relationship_item)
