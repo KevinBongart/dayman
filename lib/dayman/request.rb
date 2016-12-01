@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'dayman/request/fields'
-require 'dayman/request/filters'
-require 'dayman/request/includes'
-require 'dayman/request/sorting'
+require_relative 'request/fields'
+require_relative 'request/filters'
+require_relative 'request/includes'
+require_relative 'request/sorting'
 
 module Dayman
   class Request
