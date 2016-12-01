@@ -2,7 +2,7 @@
 
 ![Dayman](http://screenshots.kevinbongart.net/AiJbs.gif)
 
-Yet another JSON API client, heavily inspired by
+Yet another [JSON API](http://jsonapi.org) client, heavily inspired by
 [json_api_client](https://github.com/chingor13/json_api_client) and
 [ActiveRecord](http://api.rubyonrails.org/classes/ActiveRecord/Base.html).
 
