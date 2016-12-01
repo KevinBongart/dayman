@@ -11,9 +11,10 @@ module Dayman
       private
 
       def parsed_response
-        return if @raw_response.blank?
-
-        JSON.parse(@raw_response).deep_symbolize_keys
+        @parsed_response ||= begin
+          return if @raw_response.blank?
+          JSON.parse(@raw_response).deep_symbolize_keys
+        end
       end
 
       def resource_class_for(item)
