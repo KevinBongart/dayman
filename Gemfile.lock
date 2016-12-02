@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dayman (0.1.1)
+    dayman (0.1.2)
       activesupport
       faraday
 
