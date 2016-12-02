@@ -180,9 +180,9 @@ describe Dayman::Resource do
     end
 
     context 'namespaced resource' do
-      subject { Foo::Bar::NamespacedResource.path }
+      subject { Foo::Bar::NamespacedTestResource.path }
 
-      it { is_expected.to eq('namespaced_resources') }
+      it { is_expected.to eq('namespaced_test_resources') }
     end
   end
 end

@@ -26,8 +26,11 @@ class Thing < Base
 end
 
 module Foo
+  class NamespacedTestResource < Base
+  end
+
   module Bar
-    class NamespacedResource < Base
+    class NamespacedTestResource < Base
     end
   end
 end

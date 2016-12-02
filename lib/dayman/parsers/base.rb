@@ -20,12 +20,13 @@ module Dayman
       def resource_class_for(item)
         return if item.nil?
 
-        item[:type].classify.safe_constantize
+        ClassFinder.new(resource: @resource, type: item[:type]).find
       end
 
       def response_item_to_object(item)
         return unless resource_class = resource_class_for(item)
 
+        puts resource_class
         resource_class.new(item.slice(:id, :attributes))
       end
 
