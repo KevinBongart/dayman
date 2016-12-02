@@ -42,7 +42,7 @@ module Dayman
     private
 
     def connection
-      Faraday.new(url: resource.site)
+      Faraday.new(url: resource::API_BASE_URL)
     end
 
     def query_parameters

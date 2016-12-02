@@ -4,28 +4,30 @@ require 'dayman'
 require 'pry'
 require 'webmock/rspec'
 
-class TestResource < Dayman::Resource
-  self.site = 'http://dayman.com/'
+class Base < Dayman::Resource
+  API_BASE_URL = 'http://dayman.com/'
+end
 
+class TestResource < Base
   has_one :author
   has_many :publications
 end
 
-class Book < Dayman::Resource
+class Book < Base
 end
 
-class Magazine < Dayman::Resource
+class Magazine < Base
 end
 
-class Person < Dayman::Resource
+class Person < Base
 end
 
-class Thing < Dayman::Resource
+class Thing < Base
 end
 
 module Foo
   module Bar
-    class NamespacedResource < Dayman::Resource
+    class NamespacedResource < Base
     end
   end
 end

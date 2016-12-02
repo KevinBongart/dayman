@@ -6,8 +6,6 @@ module Dayman
     class << self
       extend Forwardable
 
-      attr_accessor :site
-
       def_delegators :request,
         :all,
         :fields,

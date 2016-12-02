@@ -29,7 +29,7 @@ Or install it yourself as:
 ```ruby
 module CoolPetsApi
   class Base < Dayman::Resource
-    self.site = "http://coolpets.com"
+    API_BASE_URL = "http://coolpets.com"
   end
 
   class CoolDog < Base
