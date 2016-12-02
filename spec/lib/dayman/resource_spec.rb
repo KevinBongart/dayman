@@ -178,5 +178,11 @@ describe Dayman::Resource do
 
       it { is_expected.to eq('test_resources') }
     end
+
+    context 'namespaced resource' do
+      subject { Foo::Bar::NamespacedResource.path }
+
+      it { is_expected.to eq('namespaced_resources') }
+    end
   end
 end

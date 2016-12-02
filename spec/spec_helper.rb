@@ -22,3 +22,10 @@ end
 
 class Thing < Dayman::Resource
 end
+
+module Foo
+  module Bar
+    class NamespacedResource < Dayman::Resource
+    end
+  end
+end

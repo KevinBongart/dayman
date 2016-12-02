@@ -19,7 +19,7 @@ module Dayman
         :where
 
       def path
-        name.underscore.pluralize
+        name.demodulize.underscore.pluralize
       end
 
       def has_one(relationship_name)
