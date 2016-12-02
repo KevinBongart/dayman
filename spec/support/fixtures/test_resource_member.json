@@ -4,6 +4,20 @@
     "id": "1",
     "attributes": {
       "title": "JSON API paints my bikeshed!"
+    },
+    "relationships": {
+      "author": {
+        "links": {
+          "self": "http://dayman.com/test_resources/1/relationships/author",
+          "related": "http://dayman.com/test_resources/1/author"
+        }
+      },
+      "publications": {
+        "links": {
+          "self": "http://dayman.com/test_resources/1/relationships/publications",
+          "related": "http://dayman.com/test_resources/1/publications"
+        }
+      }
     }
   }
 }

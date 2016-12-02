@@ -4,6 +4,20 @@
     "id": "1",
     "attributes": {
       "title": "JSON API paints my bikeshed!"
+    },
+    "relationships": {
+      "author": {
+        "links": {
+          "self": "http://dayman.com/test_resources/1/relationships/author",
+          "related": "http://dayman.com/test_resources/1/author"
+        }
+      },
+      "publications": {
+        "links": {
+          "self": "http://dayman.com/test_resources/1/relationships/publications",
+          "related": "http://dayman.com/test_resources/1/publications"
+        }
+      }
     }
   },
   {
@@ -11,6 +25,20 @@
     "id": "2",
     "attributes": {
       "title": "JSON API 2: my bikeshed is back!"
+    },
+    "relationships": {
+      "author": {
+        "links": {
+          "self": "http://dayman.com/test_resources/2/relationships/author",
+          "related": "http://dayman.com/test_resources/2/author"
+        }
+      },
+      "publications": {
+        "links": {
+          "self": "http://dayman.com/test_resources/2/relationships/publications",
+          "related": "http://dayman.com/test_resources/2/publications"
+        }
+      }
     }
   },
   {
@@ -18,6 +46,20 @@
     "id": "3",
     "attributes": {
       "title": "JSON API 3: bikesheder!"
+    },
+    "relationships": {
+      "author": {
+        "links": {
+          "self": "http://dayman.com/test_resources/3/relationships/author",
+          "related": "http://dayman.com/test_resources/3/author"
+        }
+      },
+      "publications": {
+        "links": {
+          "self": "http://dayman.com/test_resources/3/relationships/publications",
+          "related": "http://dayman.com/test_resources/3/publications"
+        }
+      }
     }
   }]
 }
