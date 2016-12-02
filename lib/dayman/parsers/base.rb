@@ -26,7 +26,6 @@ module Dayman
       def response_item_to_object(item)
         return unless resource_class = resource_class_for(item)
 
-        puts resource_class
         resource_class.new(item.slice(:id, :attributes))
       end
 
