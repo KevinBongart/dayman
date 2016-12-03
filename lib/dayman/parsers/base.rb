@@ -56,7 +56,7 @@ module Dayman
       end
 
       def find_included_item(relationship_item)
-        return if parsed_response[:included].blank?
+        return if parsed_response[:included].blank? || relationship_item[:data].blank?
 
         parsed_response[:included].find do |e|
           e.slice(:id, :type) == relationship_item[:data].slice(:id, :type)
