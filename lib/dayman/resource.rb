@@ -21,17 +21,19 @@ module Dayman
       end
 
       def has_one(relationship_name)
-        attr_accessor relationship_name
+        define_method(relationship_name) do
+          relationships.fetch(relationship_name)
+        end
+
+        define_method("#{relationship_name}=") do |value|
+          relationships[relationship_name] = value
+        end
       end
 
       def has_many(relationship_name)
-        instance_variable_name = "@#{relationship_name}".to_sym
-
         define_method(relationship_name) do
-          if instance_variable_defined?(instance_variable_name)
-            instance_variable_get(instance_variable_name)
-          else
-            instance_variable_set(instance_variable_name, [])
+          relationships.fetch(relationship_name) do
+            relationships[relationship_name] = []
           end
         end
       end
@@ -46,14 +48,21 @@ module Dayman
     def initialize(id: nil, attributes: {})
       @id = id
       @attributes = attributes
+      @relationships = {}
     end
 
     def method_missing(name, *args, &block)
-      attributes.key?(name) ? attributes[name] : super
+      if attributes.key?(name)
+        attributes[name]
+      elsif relationships.key?(name)
+        relationships[name]
+      else
+        super
+      end
     end
 
     def respond_to_missing?(name, include_private = false)
-      attributes.key?(name) || super
+      attributes.key?(name) || relationships.key?(name) || super
     end
   end
 end
