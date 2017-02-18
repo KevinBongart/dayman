@@ -11,6 +11,7 @@ module Dayman
         :fields,
         :filter,
         :find,
+        :first,
         :includes,
         :select,
         :sort,

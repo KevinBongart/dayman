@@ -26,6 +26,18 @@ describe Dayman::Resource do
     end
   end
 
+  describe '.first' do
+    subject { TestResource.first }
+
+    let(:response) { File.read('spec/support/fixtures/test_resource_collection.json') }
+
+    it 'fetches and returns the first member of a collection' do
+      stub_request(:get, 'http://dayman.com/test_resources?page[size]=1').to_return(body: response)
+
+      expect(subject).to be_a(TestResource)
+    end
+  end
+
   describe '.includes' do
     context 'single resource' do
       subject { TestResource.includes(:songs).all }
